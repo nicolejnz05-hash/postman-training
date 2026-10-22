@@ -31,12 +31,11 @@ jobs:
           newman run "./postman/collections/Mock Bank.postman_collection.json" \
             -e "./postman/environments/Environment.postman_environment.json" \
             -r cli,htmlextra \
-            --reporter-htmlextra-export ./reports/newman-report.html
+            --reporter-htmlextra-export "./reports/newman-report.html"
 
       - name: Upload Newman Report
         if: always()
-        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: newman-test-report
-          path: ./reports/newman-report.html
+          path: "./reports/newman-report.html"
