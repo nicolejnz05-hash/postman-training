@@ -30,15 +30,30 @@ jobs:
           find postman -type f -print
 
       - name: Run Postman Collection
-        continue-on-error: true
         run: |
           mkdir -p reports
 
-          COLLECTION="./postman/collections/Mock Bank.postman_collection.json"
-          ENVIRONMENT="./postman/environments/Environment.postman_environment.json"
+          COLLECTION=$(find postman -type f -name "*postman_collection.json" -print -quit)
+          ENVIRONMENT=$(find postman -type f -name "*postman_environment.json" -print -quit)
 
           echo "Collection: $COLLECTION"
           echo "Environment: $ENVIRONMENT"
+
+          if [ -z "$COLLECTION" ]; then
+            echo "Collection file not found."
+            exit 1
+          fi
+
+          if [ -z "$ENVIRONMENT" ]; then
+            echo "Environment file not found."
+            exit 1
+          fi
+
+          echo "=== Verifying files ==="
+          ls -lb "$COLLECTION"
+          ls -lb "$ENVIRONMENT"
+
+          echo "=== Running Newman ==="
 
           newman run "$COLLECTION" \
             -e "$ENVIRONMENT" \
@@ -49,7 +64,7 @@ jobs:
         if: always()
         run: |
           if [ ! -f "./reports/newman-report.html" ]; then
-            cat > ./reports/newman-report.html <<'EOF'
+            cat > "./reports/newman-report.html" <<'EOF'
           <!DOCTYPE html>
           <html>
           <head>
@@ -58,8 +73,8 @@ jobs:
           <body>
             <h1>Newman Test Report</h1>
             <h2>Newman execution failed</h2>
-            <p>The Newman test execution did not generate an HTML report.</p>
-            <p>Please check the GitHub Actions logs for the execution error.</p>
+            <p>Newman did not generate an HTML report.</p>
+            <p>Please check the GitHub Actions logs for the Newman execution error.</p>
           </body>
           </html>
           EOF
