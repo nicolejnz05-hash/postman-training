@@ -37,8 +37,8 @@ jobs:
           COLLECTION=$(find postman/collections -type f -name "*.json" | head -n 1)
           ENVIRONMENT=$(find postman/environments -type f -name "*.json" | head -n 1)
 
-          echo "Collection: $COLLECTION"
-          echo "Environment: $ENVIRONMENT"
+          echo "collection: $COLLECTION"
+          echo "environment: $ENVIRONMENT"
 
           if [ -z "$COLLECTION" ] || [ -z "$ENVIRONMENT" ]; then
             echo "Postman collection or environment file was not found."
