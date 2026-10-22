@@ -28,8 +28,8 @@ jobs:
         continue-on-error: true
         run: |
           mkdir -p reports
-          newman run ./postman/collections/ExternalAPIs.postman_collection.json \
-            -e ./postman/environments/Staging.postman_environment.json \
+          newman run "./postman/collections/Mock Bank.postman_collection.json" \
+            -e "./postman/environments/Environment.postman_environment.json" \
             -r cli,htmlextra \
             --reporter-htmlextra-export ./reports/newman-report.html
 
