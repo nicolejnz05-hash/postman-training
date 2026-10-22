@@ -34,31 +34,11 @@ jobs:
         run: |
           mkdir -p reports
 
-          COLLECTION=$(find postman/collections -type f -name "*.json" | head -n 1)
-          ENVIRONMENT=$(find postman/environments -type f -name "*.json" | head -n 1)
+          COLLECTION="./postman/collections/Mock Bank.postman_collection.json"
+          ENVIRONMENT="./postman/environments/Environment.postman_environment.json"
 
-          echo "collection: $COLLECTION"
-          echo "environment: $ENVIRONMENT"
-
-          if [ -z "$COLLECTION" ] || [ -z "$ENVIRONMENT" ]; then
-            echo "Postman collection or environment file was not found."
-
-            cat > reports/newman-report.html <<'EOF'
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <title>Newman Test Report</title>
-          </head>
-          <body>
-            <h1>Newman Test Report</h1>
-            <h2>Execution Error</h2>
-            <p>Postman collection or environment file could not be found by GitHub Actions.</p>
-          </body>
-          </html>
-          EOF
-
-            exit 1
-          fi
+          echo "Collection: $COLLECTION"
+          echo "Environment: $ENVIRONMENT"
 
           newman run "$COLLECTION" \
             -e "$ENVIRONMENT" \
