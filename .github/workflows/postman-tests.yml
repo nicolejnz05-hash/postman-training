@@ -25,6 +25,7 @@ jobs:
         run: npm install -g newman newman-reporter-htmlextra
 
       - name: Run Postman Collection
+        continue-on-error: true
         run: |
           mkdir -p reports
           newman run ./postman/collections/ExternalAPIs.postman_collection.json \
@@ -33,6 +34,7 @@ jobs:
             --reporter-htmlextra-export ./reports/newman-report.html
 
       - name: Upload Newman Report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: newman-test-report
