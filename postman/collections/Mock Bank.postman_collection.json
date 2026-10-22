@@ -1,0 +1,429 @@
+{
+  "info": {
+    "_postman_id": "e0a26adc-786d-4543-b94b-6dbe824d415c",
+    "name": "Mock Bank",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58673669",
+    "_collection_link": "https://go.postman.co/collection/58673669-e0a26adc-786d-4543-b94b-6dbe824d415c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Bank Mock API",
+      "item": [
+        {
+          "name": "Create Account John",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const response = pm.response.json();\r\n\r\npm.environment.set(\"accountIdJohn\", response.accountId);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"accountName\": \"John\",\r\n    \"accountType\": \"Savings\",\r\n    \"balance\": 100000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_BANK_MOCK_URL}}/accounts",
+              "host": [
+                "{{BASE_BANK_MOCK_URL}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Account",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.collectionVariables.set(\"accountId\", response.accountId);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"accountName\": \"{{accountName}}\",\r\n  \"accountType\": \"{{accountType}}\",\r\n  \"balance\": {{balance}}\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_BANK_MOCK_URL}}/accounts",
+              "host": [
+                "{{BASE_BANK_MOCK_URL}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Account Maria",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const response = pm.response.json();\r\n\r\npm.environment.get(\"accountIdMaria\", response.accountId);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n \"accountName\": \"Maria\",\r\n  \"accountType\": \"Savings\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_BANK_MOCK_URL}}/accounts",
+              "host": [
+                "{{BASE_BANK_MOCK_URL}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET All Accounts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_BANK_MOCK_URL}}/accounts",
+              "host": [
+                "{{BASE_BANK_MOCK_URL}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET ID Accounts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_BANK_MOCK_URL}}/accounts/:id",
+              "host": [
+                "{{BASE_BANK_MOCK_URL}}"
+              ],
+              "path": [
+                "accounts",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{accountId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Account Balance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_BANK_MOCK_URL}}/accounts/:id/balance",
+              "host": [
+                "{{BASE_BANK_MOCK_URL}}"
+              ],
+              "path": [
+                "accounts",
+                ":id",
+                "balance"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{accountId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deposit Money John",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n \"amount\": 100000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_BANK_MOCK_URL}}/accounts/:id/deposit",
+              "host": [
+                "{{BASE_BANK_MOCK_URL}}"
+              ],
+              "path": [
+                "accounts",
+                ":id",
+                "deposit"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{accountIdJohn}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deposit Money Maria",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n \"amount\": 500\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_BANK_MOCK_URL}}/accounts/:id/deposit",
+              "host": [
+                "{{BASE_BANK_MOCK_URL}}"
+              ],
+              "path": [
+                "accounts",
+                ":id",
+                "deposit"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{accountIdMaria}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Withdraw Money John",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n \"amount\": 15000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_BANK_MOCK_URL}}/accounts/{{accountIdJohn}}/withdraw",
+              "host": [
+                "{{BASE_BANK_MOCK_URL}}"
+              ],
+              "path": [
+                "accounts",
+                "{{accountIdJohn}}",
+                "withdraw"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Withdraw Money Maria",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n \"amount\": 3000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_BANK_MOCK_URL}}/accounts/:id/withdraw",
+              "host": [
+                "{{BASE_BANK_MOCK_URL}}"
+              ],
+              "path": [
+                "accounts",
+                ":id",
+                "withdraw"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{accountIdMaria}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transfer Money",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fromAccountId\": \"{{accountIdJohn}}\",\r\n    \"toAccountId\": \"{{accountIdMaria}}\",\r\n    \"amount\": 15000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_BANK_MOCK_URL}}/transfers",
+              "host": [
+                "{{BASE_BANK_MOCK_URL}}"
+              ],
+              "path": [
+                "transfers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transactions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_BANK_MOCK_URL}}/transactions",
+              "host": [
+                "{{BASE_BANK_MOCK_URL}}"
+              ],
+              "path": [
+                "transactions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transactions Maria",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_BANK_MOCK_URL}}/transactions",
+              "host": [
+                "{{BASE_BANK_MOCK_URL}}"
+              ],
+              "path": [
+                "transactions"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_BANK_MOCK_URL",
+      "value": ""
+    },
+    {
+      "key": "accountId",
+      "value": ""
+    },
+    {
+      "key": "accountIdJohn",
+      "value": ""
+    },
+    {
+      "key": "accountIdMaria",
+      "value": ""
+    }
+  ]
+}
